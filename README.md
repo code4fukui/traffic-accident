@@ -2,6 +2,10 @@
 
 福井県で年間1,000件、交通事故0プロジェクト
 
+## データ出典
+
+- [交通事故統計情報のオープンデータ｜警察庁Webサイト](https://www.npa.go.jp/publications/statistics/koutsuu/opendata/index_opendata.html)
+
 ## サンプルアプリ
 
 - [福井県の交通事故2019-2022](https://code4fukui.github.io/traffic-accident/fukui.html)
@@ -10,6 +14,7 @@
 
 - [コード値表](code/code.csv)
 - [コード値一覧](code)
+- データソース「[各種コード表](https://www.npa.go.jp/publications/statistics/koutsuu/opendata/2019/codebook_2019.pdf)」
 
 ## 変換プログラム
 

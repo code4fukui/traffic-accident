@@ -6,6 +6,10 @@
 
 - [福井県の交通事故2019-2022](https://code4fukui.github.io/traffic-accident/fukui.html)
 
+## コード値表
+
+- [コード値表](code/code.csv)
+
 ## 変換プログラム
 
 - [extract.js](extract.js) 警視庁オープンデータから条件で抽出する

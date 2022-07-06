@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<style>
+.leaflet-popup-content {
+  width: 300px;
+	height: 300px;
+	overflow: scroll;
+  font-size: 90%;
+}
+.leaflet-popup-content th {
+  text-align: left;
+}
+</style>
+</head><body>
+<h1>交通死亡事故（一般道）2019年-2020年 5,917件（警視庁オープンデータより）</h1>
+<script type="module" src="https://code4fukui.github.io/csv-map/csv-map.js"></script>
+<csv-map src=data/fatal.csv height=80vh lightmode=true grayscale=true></csv-map>
+「<a href=https://www.npa.go.jp/publications/statistics/koutsuu/opendata/index_opendata.html>交通事故統計情報のオープンデータ｜警察庁Webサイト</a>」を加工して作成 → <a href=data/fukui.csv>CSVデータ</a> (<a href="https://github.com/code4fukui/traffic-accident/">変換プログラム/表示プログラム on GitHub by Code for FUKUI</a>)<br>

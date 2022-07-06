@@ -8,7 +8,9 @@
 
 ## サンプルアプリ
 
-- [福井県の交通事故2019-2022](https://code4fukui.github.io/traffic-accident/fukui.html)
+- [福井県の交通事故2019-2020](https://code4fukui.github.io/traffic-accident/fukui.html)
+- [愛媛県の交通事故2019-2020](https://code4fukui.github.io/traffic-accident/ehime.html)
+- [日本の交通死亡事故2019-2020](https://code4fukui.github.io/traffic-accident/fatal.html)
 
 ## コード値表
 

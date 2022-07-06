@@ -78,3 +78,4 @@ data.map(d => {
 });
 await Deno.writeTextFile("data/fukui.csv", CSV.stringify(data));
 console.log(data.length);
+console.log(data.filter(d => d.color == "red").length);

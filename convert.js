@@ -12,16 +12,6 @@ const getSchema = async () => {
 
 const schema = await getSchema();
 
-const data1 = CSV.toJSON(await CSV.fetch("data/fukui_2019.csv"));
-const data2 = CSV.toJSON(await CSV.fetch("data/fukui_2020.csv"));
-const data = [];
-for (const d of data1) {
-  data.push(d);
-}
-for (const d of data2) {
-  data.push(d);
-}
-
 const dms2d = (d, m, s) => {
   const p = (s) => parseFloat(s);
   return p(d) + p(m) / 60 + p(s) / (60 * 60);
@@ -52,7 +42,8 @@ const getTime = (d, pre) => {
   delete d[pre + "分"];
   return hour + ":" + min;
 };
-data.map(d => {
+
+export const convert = (d) => {
   d.緯度 = kdms2d(d["地点　緯度（北緯）"]);
   delete d["地点　緯度（北緯）"];
   d.経度 = kdms2d(d["地点　経度（東経）"]);
@@ -65,7 +56,8 @@ data.map(d => {
       if (name.startsWith(name2)) {
         const f = schema[name2].find(i => i.code == d[name]);
         if (!f) {
-          console.log(f, schema[name2], d[name], name, name2)
+          console.log(f, schema[name2], d[name], name, name2);
+          throw new Error("can't convert");
         }
         d[name] = f.value;
       }
@@ -75,7 +67,4 @@ data.map(d => {
   d.負傷者数 = parseInt(d.負傷者数);
 
   d.color = d.事故内容 == "負傷" ? "blue" : "red";
-});
-await Deno.writeTextFile("data/fukui.csv", CSV.stringify(data));
-console.log(data.length);
-console.log(data.filter(d => d.color == "red").length);
+};

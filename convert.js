@@ -4,6 +4,9 @@ const getSchema = async () => {
   const root = CSV.toJSON(await CSV.fetch("code/code.csv"));
   const schema = {};
   for (const d of root) {
+    if (d.file[0] == "#") {
+      continue;
+    }
     const sc = CSV.toJSON(await CSV.fetch("code/" + d.file));
     schema[d.name] = sc;
   }
@@ -44,27 +47,74 @@ const getTime = (d, pre) => {
 };
 
 export const convert = (d) => {
-  d.緯度 = kdms2d(d["地点　緯度（北緯）"]);
-  delete d["地点　緯度（北緯）"];
-  d.経度 = kdms2d(d["地点　経度（東経）"]);
-  delete d["地点　経度（東経）"];
-  d.発生日 = getDate(d, "発生日時　　");
-  d.発生時 = getTime(d, "発生日時　　");
+  if (d["地点　緯度（北緯）"]) {
+    d.緯度 = kdms2d(d["地点　緯度（北緯）"]);
+    delete d["地点　緯度（北緯）"];
+    d.経度 = kdms2d(d["地点　経度（東経）"]);
+    delete d["地点　経度（東経）"];
+  }
+  if (d["発生日時　　月"]) {
+    d.発生日 = getDate(d, "発生日時　　");
+    d.発生時 = getTime(d, "発生日時　　");
+  }
 
+  const d2 = {};
   for (const name in d) {
     for (const name2 in schema) {
+      const sc = schema[name2];
+      //console.log(sc)
+      //if (sc.means.indexOf("本票") == -1) {
+      /*
+      if (sc.means.indexOf("本票") == -1) {
+        continue;
+      }
+      */
       if (name.startsWith(name2)) {
-        const f = schema[name2].find(i => i.code == d[name]);
+        const f = (() => {
+          if (sc.option) {
+            const opt = sc.option.split("/");
+            return sc.find(i => {
+              if (i.code != d[name]) {
+                return false;
+              }
+              for (const o of opt) {
+                if (i[o] != d[o]) {
+                  return false;
+                }
+              }
+              return true;
+            });
+          } else {
+            return sc.find(i => i.code == d[name]);
+          }
+        })();
         if (!f) {
-          console.log(f, schema[name2], d[name], name, name2);
-          throw new Error("can't convert");
+          if (name == "トンネル番号" && d[name] == "000") {
+            d2[name] = "";
+            continue;
+          } else if (d[name].trim().length == 0) {
+            d2[name] = "";
+            continue;
+          } else {
+            console.log(sc, d[name], name, name2);
+            throw new Error("can't convert");
+          }
         }
-        d[name] = f.value;
+        d2[name] = f.value;
       }
     }
   }
-  d.死者数 = parseInt(d.死者数);
-  d.負傷者数 = parseInt(d.負傷者数);
+  for (const name in d2) {
+    d[name] = d2[name];
+  }
+  const num = ["死者数", "負傷者数", "当事者車両台数", "トンネル延長距離", "発生地点"];
+  for (const n of num) {
+    if (d[n] != undefined) {
+      d[n] = parseInt(d[n]);
+    }
+  }
 
-  d.color = d.事故内容 == "負傷" ? "blue" : "red";
+  if (d.事故内容 != undefined) {
+    d.color = d.事故内容 == "負傷" ? "blue" : "red";
+  }
 };

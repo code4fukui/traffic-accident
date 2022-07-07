@@ -11,6 +11,8 @@
 - [福井県の交通事故2019-2020](https://code4fukui.github.io/traffic-accident/fukui.html)
 - [愛媛県の交通事故2019-2020](https://code4fukui.github.io/traffic-accident/ehime.html)
 - [日本の交通死亡事故2019-2020](https://code4fukui.github.io/traffic-accident/fatal.html)
+- [高速道路での交通事故2019-2020](https://code4fukui.github.io/traffic-accident/kosoku.html)
+- [高速道路での交通事故分析2019-2020](https://code4fukui.github.io/traffic-accident/kosokustat.html)
 
 ## コード値表
 

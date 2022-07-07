@@ -20,5 +20,5 @@
 
 ## 変換プログラム
 
-- [extract.js](extract.js) 警視庁オープンデータから条件で抽出する
+- [extract.js](extract.js) 警察庁オープンデータから条件で抽出する
 - [convert.js](convert.js) コード表を元に読みやすいデータに変換する / 緯度経度を度表記に変換する

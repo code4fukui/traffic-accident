@@ -3,7 +3,10 @@ import { CSV } from "https://js.sabae.cc/CSV.js";
 
 const list = [];
 await readData((data) => {
-  if (data.発生地点 != undefined &&
+  if (
+    data.発生地点 != undefined &&
+    data.道路区分 != "パーキングエリア" &&
+    data.道路区分 != "サービスエリア" &&
     (
       data["車両の衝突部位（当事者A）"].startsWith("前-") ||
       data["車両の衝突部位（当事者A）"].startsWith("右前-") ||

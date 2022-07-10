@@ -82,18 +82,32 @@ export const convert = (d) => {
           if (ss.schema.option) {
             const opt = ss.schema.option.split("/");
             return sc.find(i => {
-              if (i.code != d[name]) {
-                return false;
+              if (name == "路線コード") {
+                if (d[name].startsWith(i.code)) {
+                  return false;
+                }
+              } else {
+                if (i.code != d[name]) {
+                  return false;
+                }
               }
               for (const o of opt) {
-                if (i[o] != d[o]) {
+                if (o == "路線コード") {
+                  if (!d[o].startsWith(i[o])) {
+                    return false;
+                  }
+                } else if (i[o] != d[o]) {
                   return false;
                 }
               }
               return true;
             });
           } else {
-            return sc.find(i => i.code == d[name]);
+            if (name == "路線コード") {
+              return sc.find(i => d[name].startsWith(i.code));
+            } else {
+              return sc.find(i => i.code == d[name]);
+            }
           }
         })();
         if (!f) {
@@ -104,7 +118,7 @@ export const convert = (d) => {
             d2[name] = "";
             continue;
           } else {
-            console.log(sc, d.都道府県コード, d[name], name, name2);
+            console.log(d.都道府県コード, d[name], name, name2);
             throw new Error("can't convert");
           }
         }

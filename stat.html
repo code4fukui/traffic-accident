@@ -20,7 +20,7 @@ const csv = CSV.toJSON(await CSV.fetch(url));
 console.log(csv);
 
 // 本票番号,警察署等コード,
-const names = "都道府県コード,事故内容,昼夜,天候,地形,車両形状（当事者A）,車両形状（当事者B）,車両の衝突部位（当事者A）,車両の衝突部位（当事者B）".split(",");
+const names = "都道府県コード,事故内容,昼夜,天候,地形,当事者種別（当事者A）,当事者種別（当事者B）,車両形状（当事者A）,車両形状（当事者B）,車両の衝突部位（当事者A）,車両の衝突部位（当事者B）".split(",");
 
 const show = () => {
   divpie.innerHTML = "";

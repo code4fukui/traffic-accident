@@ -83,7 +83,7 @@ export const convert = (d) => {
             const opt = ss.schema.option.split("/");
             return sc.find(i => {
               if (name == "路線コード") {
-                if (d[name].startsWith(i.code)) {
+                if (!d[name].startsWith(i.code)) {
                   return false;
                 }
               } else {
@@ -116,6 +116,8 @@ export const convert = (d) => {
             continue;
           } else if (d[name].trim().length == 0) {
             d2[name] = "";
+            continue;
+          } else if (name == "路線コード") {
             continue;
           } else {
             console.log(d.都道府県コード, d[name], name, name2);

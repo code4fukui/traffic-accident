@@ -1,16 +1,6 @@
 import { CSV } from "https://js.sabae.cc/CSV.js";
 
-const names = [
-  "無",
-  "前",
-  "右",
-  "後",
-  "左",
-  "右前",
-  "右後",
-  "左後",
-  "左前",
-];
+const names = ["無", "前", "右", "後", "左", "右前", "右後", "左後", "左前"];
 
 const list = [];
 for (let i = 0; i < names.length; i++) {

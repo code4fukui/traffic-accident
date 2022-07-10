@@ -8,7 +8,7 @@ const getSchema = async () => {
       continue;
     }
     const sc = CSV.toJSON(await CSV.fetch("code/" + d.file));
-    schema[d.name] = sc;
+    schema[d.name] = { schema: d, code: sc };
   }
   return schema;
 };
@@ -67,8 +67,10 @@ export const convert = (d) => {
   const d2 = {};
   for (const name in d) {
     for (const name2 in schema) {
-      const sc = schema[name2];
-      //console.log(sc)
+      const ss = schema[name2];
+      const sc = ss.code;
+      //console.log(ss.schema, d)
+      //Deno.exit(0)
       //if (sc.means.indexOf("本票") == -1) {
       /*
       if (sc.means.indexOf("本票") == -1) {
@@ -77,8 +79,8 @@ export const convert = (d) => {
       */
       if (name.startsWith(name2)) {
         const f = (() => {
-          if (sc.option) {
-            const opt = sc.option.split("/");
+          if (ss.schema.option) {
+            const opt = ss.schema.option.split("/");
             return sc.find(i => {
               if (i.code != d[name]) {
                 return false;
@@ -102,7 +104,7 @@ export const convert = (d) => {
             d2[name] = "";
             continue;
           } else {
-            console.log(sc, d[name], name, name2);
+            console.log(sc, d.都道府県コード, d[name], name, name2);
             throw new Error("can't convert");
           }
         }

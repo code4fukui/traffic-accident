@@ -5,6 +5,7 @@ import { convert } from "./convert.js";
 const srcfns = [
   "data_src/hojuhyo_2019.csv",
   "data_src/hojuhyo_2020.csv",
+  "data_src/hojuhyo_2021.csv",
 ];
 
 export const readDataHoju = async (callback) => {

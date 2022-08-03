@@ -46,6 +46,73 @@ const getTime = (d, pre) => {
   return hour + ":" + min;
 };
 
+/*
+0001～0999 一般国道（国道番号） 0 現道区間又は包括路線
+1000～1499 主要地方道－都道府県道 1～9 バイパス区間
+1500～1999 主要地方道－市道
+2000～2999 一般都道府県道
+3000～3999 一般市町村道
+4000～4999 高速自動車国道 *1
+5000～5499 自動車専用道－指定 *1
+5500～5999 自動車専用道－その他
+6000～6999 道路運送法上の道路
+7000～7999 農（免）道
+8000～8499 林道
+8500～8999 港湾道
+9000～9499 私道
+9500 その他
+9900 一般の交通の用に供するその他の道路
+*/
+const getRoadType = (n) => {
+  if (n.length == 5) {
+    const bypass = n.substring(4);
+    n = n.substring(0, 4);
+  } else if (n.length != 4) {
+    throw new Error("illegal road type: " + n);
+  }
+  if (n <= 999) {
+    return "一般国道"; // "国道" + n + "号線";
+  } else if (n <= 1499) {
+    return "都道府県道";
+  } else if (n <= 1999) {
+    return "市道";
+  } else if (n <= 2999) {
+    return "一般都道府県道";
+  } else if (n <= 3999) {
+    return "一般市町村道";
+  } else if (n <= 4999) {
+    return "高速自動車国道";
+  } else if (n <= 5499) {
+    return "自動車専用道－指定";
+  } else if (n <= 5999) {
+    return "自動車専用道－その他";
+  } else if (n <= 6999) {
+    return "道路運送法上の道路";
+  } else if (n <= 7999) {
+    return "農（免）道";
+  } else if (n <= 8499) {
+    return "林道";
+  } else if (n <= 8999) {
+    return "港湾道";
+  } else if (n <= 9499) {
+    return "私道";
+  } else if (n == 9500) {
+    return "その他";
+  } else if (n == 9900) {
+    return "一般の交通の用に供するその他の道路";
+  } else {
+    throw new Error("illegal road code: " + n);
+  }
+};
+const decodeRoadCdoe = (n) => {
+  const type = getRoadType(n);
+  if (type == "一般国道") {
+    const bypass = n.substring(4);
+    return "国道" + parseInt(n.substring(0, 4)) + "号線" + (bypass != "0" ? "バイパス" + bypass : "");
+  }
+  return type + " " + n;
+};
+
 export const convert = (d) => {
   if (d["地点　緯度（北緯）"]) {
     d.緯度 = kdms2d(d["地点　緯度（北緯）"]);
@@ -118,6 +185,7 @@ export const convert = (d) => {
             d2[name] = "";
             continue;
           } else if (name == "路線コード") {
+            d[name] = decodeRoadCdoe(d[name]);
             continue;
           } else {
             console.log(d.都道府県コード, d[name], name, name2);

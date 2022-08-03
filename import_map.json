@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "CSV": "https://js.sabae.cc/CSV.js"
+  }
+}

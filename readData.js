@@ -4,7 +4,7 @@ import { convert } from "./convert.js";
 import { CSV } from "https://js.sabae.cc/CSV.js";
 
 export const readData = async (callback) => {
-  for (let i = 2019; i <= 2020; i++) {
+  for (let i = 2019; i <= 2021; i++) {
     const srcfn = `data_src/honhyo_${i}.csv`;
     const apfn = `data_src/hojuhyo_${i}.csv`;
     const kosokufn = `data_src/kosokuhyo_${i}.csv`;

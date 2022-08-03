@@ -3,7 +3,7 @@ import { TextDecoderSJIS } from "https://js.sabae.cc/TextDecoderSJIS.js";
 import { convert } from "./convert.js";
 
 export const readDataKosoku = async (callback) => {
-  for (let i = 2019; i <= 2020; i++) {
+  for (let i = 2019; i <= 2021; i++) {
     const srcfn = `data_src/kosokuhyo_${i}.csv`;
     const r = new CSVReader(srcfn, new TextDecoderSJIS());
     const head = await r.readRecord();

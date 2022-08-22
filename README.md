@@ -26,7 +26,7 @@
 
 ### その他
 
-- [緯度経度異常データ2019-2020](https://code4fukui.github.io/traffic-accident/error.html)
+- [緯度経度異常データ2019-2021](https://code4fukui.github.io/traffic-accident/error.html)
 
 ## コード値表
 
